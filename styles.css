@@ -1,0 +1,78 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f0f8ea;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    color: #2d6a4f;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 10px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #2d6a4f;
+    font-weight: bold;
+}
+
+#word-list {
+    background: white;
+    padding: 15px;
+    display: inline-block;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px gray;
+    margin-bottom: 20px;
+}
+
+#game-board {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 5px;
+    background-color: #ddd;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 450px;
+    margin: auto;
+}
+
+.cell {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    border: 2px solid black;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    transition: background-color 0.3s;
+}
+
+.cell.selected {
+    background-color: #ffd54f;
+}
+
+.cell.found {
+    background-color: #66bb6a;
+    color: white;
+}
+
+#message {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+    color: #d32f2f;
+}
