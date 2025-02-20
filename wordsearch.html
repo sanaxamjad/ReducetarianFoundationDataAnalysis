@@ -3,32 +3,221 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Factory Farming Word Search</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Word Search Game</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        #game-board {
+            display: grid;
+            grid-template-columns: repeat(10, 50px);
+            grid-gap: 5px;
+            margin: 20px auto;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            width: fit-content;
+        }
+
+        .cell {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid white;
+            font-size: 22px;
+            font-weight: bold;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.2);
+            transition: 0.3s;
+            border-radius: 5px;
+        }
+
+        .cell:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(1.1);
+        }
+
+        .selected {
+            background: yellow;
+            color: black;
+        }
+
+        .found {
+            background: lightgreen;
+            color: black;
+            pointer-events: none;
+        }
+
+        #word-list {
+            list-style: none;
+            padding: 0;
+            font-size: 1.2em;
+        }
+
+        li {
+            background: rgba(255, 255, 255, 0.2);
+            display: inline-block;
+            padding: 10px;
+            margin: 5px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        #message {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Factory Farming Word Search</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="game2.html">Game 2</a></li>
-                <li><a href="game3.html">Game 3</a></li>
-            </ul>
-        </nav>
-    </header>
-    
-    <div id="word-list">
-        <h3>Find these words:</h3>
-        <ul id="words"></ul>
-    </div>
-
-    <div id="game-container">
-        <div id="game-board"></div>
-    </div>
-
+    <h1>Word Search Game</h1>
+    <p>Find the following words:</p>
+    <ul id="word-list"></ul>
+    <div id="game-board"></div>
     <p id="message"></p>
 
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const wordsToFind = ["FARM", "MEAT", "DAIRY", "GMO", "ETHICS", "WASTE", "GRAIN", "ANIMAL", "MARKET", "EXPORT"];
+            const gridSize = 10;
+            const gameBoard = document.getElementById("game-board");
+            const wordList = document.getElementById("word-list");
+            const message = document.getElementById("message");
+            let selectedCells = [];
+            let foundWords = new Set();
+
+            // Populate the word list
+            wordsToFind.forEach(word => {
+                const li = document.createElement("li");
+                li.textContent = word;
+                wordList.appendChild(li);
+            });
+
+            let grid = Array.from({ length: gridSize }, () => Array(gridSize).fill(""));
+
+            function placeWord(word) {
+                let placed = false;
+                const directions = [
+                    { x: 1, y: 0 },  // Right
+                    { x: 0, y: 1 },  // Down
+                    { x: 1, y: 1 },  // Diagonal Down-Right
+                    { x: -1, y: 1 }  // Diagonal Down-Left
+                ];
+
+                while (!placed) {
+                    const row = Math.floor(Math.random() * gridSize);
+                    const col = Math.floor(Math.random() * gridSize);
+                    const direction = directions[Math.floor(Math.random() * directions.length)];
+                    let r = row, c = col;
+                    let valid = true;
+
+                    for (let i = 0; i < word.length; i++) {
+                        if (
+                            r < 0 || r >= gridSize || 
+                            c < 0 || c >= gridSize || 
+                            (grid[r][c] !== "" && grid[r][c] !== word[i])
+                        ) {
+                            valid = false;
+                            break;
+                        }
+                        r += direction.y;
+                        c += direction.x;
+                    }
+
+                    if (valid) {
+                        r = row, c = col;
+                        for (let i = 0; i < word.length; i++) {
+                            grid[r][c] = word[i];
+                            r += direction.y;
+                            c += direction.x;
+                        }
+                        placed = true;
+                    }
+                }
+            }
+
+            wordsToFind.forEach(word => placeWord(word));
+
+            // Fill empty cells with random letters
+            for (let row = 0; row < gridSize; row++) {
+                for (let col = 0; col < gridSize; col++) {
+                    if (grid[row][col] === "") {
+                        grid[row][col] = String.fromCharCode(65 + Math.floor(Math.random() * 26));
+                    }
+                }
+            }
+
+            // Generate game board
+            grid.forEach((row, rowIndex) => {
+                row.forEach((letter, colIndex) => {
+                    const cell = document.createElement("div");
+                    cell.classList.add("cell");
+                    cell.textContent = letter;
+                    cell.dataset.row = rowIndex;
+                    cell.dataset.col = colIndex;
+                    gameBoard.appendChild(cell);
+                });
+            });
+
+            // Add click event listener for selection
+            document.querySelectorAll(".cell").forEach(cell => {
+                cell.addEventListener("click", () => {
+                    if (cell.classList.contains("found")) return;
+
+                    cell.classList.toggle("selected");
+
+                    if (selectedCells.includes(cell)) {
+                        selectedCells = selectedCells.filter(c => c !== cell);
+                    } else {
+                        selectedCells.push(cell);
+                    }
+
+                    checkForWord();
+                });
+            });
+
+            function checkForWord() {
+                let selectedText = selectedCells.map(cell => cell.textContent).join("");
+                let reversedText = selectedText.split("").reverse().join("");
+
+                let foundWord = wordsToFind.find(word => word === selectedText || word === reversedText);
+
+                if (foundWord) {
+                    selectedCells.forEach(cell => cell.classList.add("found"));
+                    foundWords.add(foundWord);
+                    selectedCells = [];
+
+                    // Cross out the word in the word list
+                    document.querySelectorAll("#word-list li").forEach(li => {
+                        if (li.textContent.trim().toUpperCase() === foundWord) {
+                            li.style.textDecoration = "line-through";
+                            li.style.color = "gray"; // Optional: Change color for better visibility
+                        }
+                    });
+                }
+
+                if (foundWords.size === wordsToFind.length) {
+                    message.textContent = "🎉 Congratulations! You found all the words!";
+                }
+            }
+        });
+    </script>
 </body>
 </html>
