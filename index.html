@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reducetarian Fellowship Project</title>
+  <style>
+    :root {
+      --primary-green: #43a047;
+      --dark-green: #2e7d32;
+      --light-green: #e8f5e9;
+      --accent-green: #66bb6a;
+      --background: #f4faf4;
+      --text-color: #2e2e2e;
+      --card-shadow: rgba(0, 0, 0, 0.07);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--background);
+      color: var(--text-color);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary-green), var(--dark-green));
+      color: white;
+      text-align: center;
+      padding: 3rem 1rem 2rem;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    nav {
+      background-color: white;
+      box-shadow: 0 2px 6px var(--card-shadow);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    nav ul {
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      list-style: none;
+      padding: 1rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--primary-green);
+      font-weight: 600;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: var(--dark-green);
+    }
+
+    main {
+      padding: 3rem 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    section {
+      margin-bottom: 4rem;
+      padding: 2rem;
+      background-color: white;
+      border-radius: 1rem;
+      box-shadow: 0 8px 20px var(--card-shadow);
+      transition: transform 0.3s ease;
+    }
+
+    section:hover {
+      transform: translateY(-5px);
+    }
+
+    h2 {
+      color: var(--dark-green);
+      margin-bottom: 1.25rem;
+      font-size: 1.75rem;
+    }
+
+    .game-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+    }
+
+    .game-card {
+      flex: 1 1 300px;
+      background-color: var(--light-green);
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 12px var(--card-shadow);
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .game-card:hover {
+      transform: scale(1.02);
+    }
+
+    .game-card h3 {
+      font-size: 1.3rem;
+      color: var(--dark-green);
+      margin-bottom: 0.5rem;
+    }
+
+    .game-card p {
+      margin-bottom: 1rem;
+    }
+
+    .game-card button {
+      padding: 0.6rem 1.2rem;
+      background-color: var(--primary-green);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .game-card button:hover {
+      background-color: var(--dark-green);
+    }
+
+    #charts {
+      margin-top: 2rem;
+      min-height: 300px;
+      background-color: #e3f2e9;
+      border-radius: 1rem;
+      padding: 1.5rem;
+    }
+
+    footer {
+      background: var(--dark-green);
+      color: white;
+      text-align: center;
+      padding: 1.5rem 1rem;
+      font-size: 0.95rem;
+      margin-top: 3rem;
+      border-top: 5px solid var(--accent-green);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Reducetarian Fellowship Project</h1>
+    <p>Explore food systems through interactive games and visual data!</p>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="#games">Games</a></li>
+      <li><a href="#data-viz">Data Visualizations</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section id="games">
+      <h2>Games</h2>
+      <div class="game-container">
+        <div class="game-card">
+          <h3>Farm to Table Match</h3>
+          <p>Match food items to their sources in this fun memory-style game!</p>
+          <button onclick="window.location.href='farm-to-table.html'">Play Now</button>
+        </div>
+        <div class="game-card">
+          <h3>Word Search</h3>
+          <p>Find keywords related to food systems, sustainability, and nutrition.</p>
+          <button onclick="window.location.href='word-search.html'">Play Now</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="data-viz">
+      <h2>Data Visualizations</h2>
+      <p>Explore trends in food production, consumption, and sustainability.</p>
+      <div id="charts">
+        <!-- JavaScript-generated visualizations will be inserted here -->
+      </div>
+    </section>
+
+    <section id="about">
+      <h2>About the Project</h2>
+      <p>This project was created as part of the Reducetarian Fellowship to raise awareness and inspire engagement through interactive learning tools.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Reducetarian Fellowship Project</p>
+  </footer>
+</body>
+</html>
