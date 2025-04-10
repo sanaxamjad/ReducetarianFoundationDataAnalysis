@@ -222,20 +222,21 @@
 
     <section id="data-viz">
       <h2>Data Visualizations</h2>
-      <p>Explore trends in food production, consumption, and sustainability.</p>
       <div class="slider">
         <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
         <img id="slide-image" src="production.png" alt="Visualization">
         <button class="next" onclick="changeSlide(1)">&#10095;</button>
         <div class="description" id="slide-description">
-          This chart shows the total agricultural production value from 1961 to 2014, highlighting consistent global growth.
+          This chart shows the global total agricultural production value from 1961 to 2014 using FAO data. It highlights a steady upward trend driven by population growth, technological advancements, and expanded agricultural practices, with a sharp spike around 1992 likely due to geopolitical shifts and improved reporting. Overall, it reflects rising demand and growing production capacity, offering insight into long-term trends in global food systems.
         </div>
       </div>
     </section>
 
     <section id="about">
       <h2>About the Project</h2>
-      <p>This project was created as part of the Reducetarian Fellowship to raise awareness and inspire engagement through interactive learning tools.</p>
+      <p>This project was created by Sana Amjad as part of the Reducetarian Fellowship to raise awareness and inspire engagement through interactive learning tools. As a multidisciplinary technologist passionate about ethical technology and public interest design, Sana conceptualized, designed, and implemented this initiative using principles of human-centered computing, data storytelling, and inclusive design. Drawing from her background in Information Science, with a specialization in Data Science and minors in Risk Management and Tech Policy, she aimed to create a tool that is both educational and impactful, bridging the gap between awareness and action on key issues like food sustainability and climate justice.
+
+        .</p>
     </section>
   </main>
 
@@ -246,15 +247,17 @@
   <script>
     const images = [
       'production.png',
-      'images/top-areas-by-production.png',
-      'images/top-items-by-production.png',
+      'crop.png',
+      'items.png',
+      'wheat.png',
       'images/wheat-trend.png'
     ];
 
     const descriptions = [
       'This chart shows the global total agricultural production value from 1961 to 2014 using FAO data. It highlights a steady upward trend driven by population growth, technological advancements, and expanded agricultural practices, with a sharp spike around 1992 likely due to geopolitical shifts and improved reporting. Overall, it reflects rising demand and growing production capacity, offering insight into long-term trends in global food systems.',
-      'Top 10 areas by total production, showcasing countries or regions with the highest agricultural output.',
-      'Top 10 agricultural products by total production volume, showing the most widely produced items.',
+      'This map illustrates global crop diversity by country, using color gradients to represent the number of unique crops cultivated in each region. Countries shaded in bright yellow grow over 110 different crops, indicating a rich and diverse agricultural base. These include regions such as India, China, the United States, and Brazil, which benefit from varied climates, advanced agricultural infrastructure, and large-scale farming systems. In contrast, areas shown in purple and dark shades; including parts of Africa, Central Asia, and the Middle East; display lower crop diversity (under 80 crops). This can be linked to factors such as climatic limitations, political instability, resource constraints, or economic dependency on a few staple crops. ',
+      'This chart shows that cereals (excluding beer) have the highest global production value, highlighting their role as essential dietary staples and animal feed. Milk production follows closely, reflecting the widespread demand for dairy across cultures. Vegetables, starchy roots, and maize also rank high, emphasizing their importance in both nutrition and food security. Overall, the data reveals how a few key food categories dominate global agricultural output, shaping diets and economies worldwide.',
+      'This projected increase in wheat production signals both opportunity and pressure for global food systems. On one hand, it reflects the capacity to meet growing food demands driven by population growth and dietary reliance on staple grains. On the other, it highlights the need for sustainable agricultural practices, as continued expansion could strain land, water, and climate resources. The trend emphasizes the importance of investing in resilient, climate-smart farming to ensure food security without compromising ecological balance.',
       'Yearly production trend for Wheat and related products, tracking changes in demand and output over time.'
     ];
 
