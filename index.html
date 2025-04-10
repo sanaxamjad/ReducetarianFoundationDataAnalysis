@@ -140,12 +140,42 @@
       background-color: var(--dark-green);
     }
 
-    #charts {
-      margin-top: 2rem;
-      min-height: 300px;
-      background-color: #e3f2e9;
-      border-radius: 1rem;
-      padding: 1.5rem;
+    .slider {
+      position: relative;
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .slider img {
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .slider button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      font-size: 2rem;
+      cursor: pointer;
+      padding: 0 12px;
+    }
+
+    .slider button:hover {
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    .prev { left: 0; }
+    .next { right: 0; }
+
+    .description {
+      margin-top: 1rem;
+      font-size: 1rem;
+      color: var(--text-color);
     }
 
     footer {
@@ -193,8 +223,13 @@
     <section id="data-viz">
       <h2>Data Visualizations</h2>
       <p>Explore trends in food production, consumption, and sustainability.</p>
-      <div id="charts">
-        <!-- JavaScript-generated visualizations will be inserted here -->
+      <div class="slider">
+        <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
+        <img id="slide-image" src="production.png" alt="Visualization">
+        <button class="next" onclick="changeSlide(1)">&#10095;</button>
+        <div class="description" id="slide-description">
+          This chart shows the total agricultural production value from 1961 to 2014, highlighting consistent global growth.
+        </div>
       </div>
     </section>
 
@@ -207,5 +242,32 @@
   <footer>
     <p>&copy; 2025 Reducetarian Fellowship Project</p>
   </footer>
+
+  <script>
+    const images = [
+      'production.png',
+      'images/top-areas-by-production.png',
+      'images/top-items-by-production.png',
+      'images/wheat-trend.png'
+    ];
+
+    const descriptions = [
+      'This chart shows the global total agricultural production value from 1961 to 2014 using FAO data. It highlights a steady upward trend driven by population growth, technological advancements, and expanded agricultural practices, with a sharp spike around 1992 likely due to geopolitical shifts and improved reporting. Overall, it reflects rising demand and growing production capacity, offering insight into long-term trends in global food systems.',
+      'Top 10 areas by total production, showcasing countries or regions with the highest agricultural output.',
+      'Top 10 agricultural products by total production volume, showing the most widely produced items.',
+      'Yearly production trend for Wheat and related products, tracking changes in demand and output over time.'
+    ];
+
+    let currentIndex = 0;
+
+    function changeSlide(direction) {
+      currentIndex += direction;
+      if (currentIndex < 0) currentIndex = images.length - 1;
+      if (currentIndex >= images.length) currentIndex = 0;
+
+      document.getElementById('slide-image').src = images[currentIndex];
+      document.getElementById('slide-description').textContent = descriptions[currentIndex];
+    }
+  </script>
 </body>
 </html>
