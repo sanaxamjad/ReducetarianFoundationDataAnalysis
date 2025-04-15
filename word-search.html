@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Factory Farming Word Search</title>
   <style>
     body {
@@ -29,6 +29,11 @@
     #word-list ul {
       list-style: none;
       padding: 0;
+    }
+
+    #word-list li {
+      font-size: 18px;
+      margin: 5px 0;
     }
 
     #game-container {
@@ -78,6 +83,46 @@
       margin-top: 20px;
       color: #d32f2f;
     }
+
+    #fact-popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      max-width: 400px;
+      display: none;
+      z-index: 1000;
+    }
+
+    #fact-popup h3 {
+      margin-top: 0;
+      color: #2d6a4f;
+    }
+
+    #fact-popup button {
+      margin-top: 15px;
+      padding: 8px 16px;
+      background-color: #2d6a4f;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.4);
+      display: none;
+      z-index: 999;
+    }
   </style>
 </head>
 <body>
@@ -94,8 +139,29 @@
 
   <p id="message"></p>
 
+  <!-- Popup and Overlay -->
+  <div id="overlay"></div>
+  <div id="fact-popup">
+    <h3 id="popup-word"></h3>
+    <p id="popup-fact"></p>
+    <button onclick="closePopup()">Close</button>
+  </div>
+
   <script>
     const wordsToFind = ["FARM", "MEAT", "DAIRY", "GMO", "ETHICS", "WASTE", "GRAIN", "ANIMAL", "MARKET", "EXPORT"];
+    const wordFacts = {
+      FARM: "Nearly 99% of farmed animals in the US are raised on factory farms (CAFOs).",
+      MEAT: "Over 70% of meat in the US comes from factory farms, where animals are raised in crowded, stressful conditions.",
+      DAIRY: "Most dairy cows in the US are kept on factory farms, where they are repeatedly impregnated and separated from their calves to maximize milk production.",
+      GMO: "Factory farms rely heavily on genetically modified (GMO) crops, especially corn and soy, for animal feed.",
+      ETHICS: "Factory farming raises significant ethical concerns due to confinement, lack of natural behaviors, and routine painful procedures.",
+      WASTE: "Factory farms produce massive amounts of animal waste, often polluting water and air.",
+      GRAIN: "Factory-farmed animals are fed grain-based diets, mainly corn and soy, instead of grazing on pasture.",
+      ANIMAL: "Billions of animals—cows, pigs, chickens, and fish—are raised and slaughtered on factory farms each year.",
+      MARKET: "The factory farming model dominates global markets for meat, dairy, and eggs, squeezing out smaller farms.",
+      EXPORT: "The US exports large quantities of factory-farmed meat and dairy, spreading intensive agriculture globally."
+    };
+
     const gridSize = 10;
     const gameBoard = document.getElementById("game-board");
     const wordList = document.getElementById("words");
@@ -107,6 +173,7 @@
     wordsToFind.forEach(word => {
       const li = document.createElement("li");
       li.textContent = word;
+      li.id = `word-${word}`;
       wordList.appendChild(li);
     });
 
@@ -152,6 +219,7 @@
 
     wordsToFind.forEach(word => placeWord(word));
 
+    // Fill empty cells with random letters
     for (let row = 0; row < gridSize; row++) {
       for (let col = 0; col < gridSize; col++) {
         if (grid[row][col] === "") {
@@ -160,6 +228,7 @@
       }
     }
 
+    // Render grid
     grid.forEach((row, rowIndex) => {
       row.forEach((letter, colIndex) => {
         const cell = document.createElement("div");
@@ -191,15 +260,36 @@
       let selectedText = selectedCells.map(cell => cell.textContent).join("");
       let reversedText = selectedText.split("").reverse().join("");
 
-      if (wordsToFind.includes(selectedText) || wordsToFind.includes(reversedText)) {
+      let found = null;
+      if (wordsToFind.includes(selectedText)) {
+        found = selectedText;
+      } else if (wordsToFind.includes(reversedText)) {
+        found = reversedText;
+      }
+
+      if (found && !foundWords.has(found)) {
         selectedCells.forEach(cell => cell.classList.add("found"));
-        foundWords.add(selectedText);
+        document.getElementById(`word-${found}`).style.textDecoration = "line-through";
+        showPopup(found, wordFacts[found]);
+        foundWords.add(found);
         selectedCells = [];
       }
 
       if (foundWords.size === wordsToFind.length) {
-        message.textContent = "Congratulations! You found all the words!";
+        message.textContent = "🎉 Congratulations! You found all the words!";
       }
+    }
+
+    function showPopup(word, fact) {
+      document.getElementById("popup-word").textContent = `✅ ${word}`;
+      document.getElementById("popup-fact").textContent = fact;
+      document.getElementById("overlay").style.display = "block";
+      document.getElementById("fact-popup").style.display = "block";
+    }
+
+    function closePopup() {
+      document.getElementById("overlay").style.display = "none";
+      document.getElementById("fact-popup").style.display = "none";
     }
   </script>
 </body>
