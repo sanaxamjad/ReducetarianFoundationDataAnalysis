@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>True or False: Food Facts!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-green: #43a047;
+      --dark-green: #2e7d32;
+      --light-green: #e8f5e9;
+      --accent-green: #66bb6a;
+      --background: #f4faf4;
+      --text-color: #2e2e2e;
+      --card-shadow: rgba(0, 0, 0, 0.07);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--background);
+      color: var(--text-color);
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      color: var(--dark-green);
+      margin-bottom: 1rem;
+    }
+
+    .game-card {
+      background-color: var(--light-green);
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 8px 20px var(--card-shadow);
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .game-card h3 {
+      font-size: 1.3rem;
+      color: var(--primary-green);
+      margin-bottom: 1rem;
+    }
+
+    .game-card p {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    button {
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      margin: 0 0.5rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:first-of-type {
+      background-color: #66bb6a;
+      color: white;
+    }
+
+    button:first-of-type:hover {
+      background-color: #4caf50;
+    }
+
+    button:last-of-type {
+      background-color: #ef5350;
+      color: white;
+    }
+
+    button:last-of-type:hover {
+      background-color: #d32f2f;
+    }
+
+    #tf-feedback {
+      margin-top: 1rem;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    footer {
+      margin-top: 2rem;
+      font-size: 0.85rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <h1>True or False: Food Facts!</h1>
+
+  <div class="game-card">
+    <h3>Is this statement true or false?</h3>
+    <p id="tf-question">Loading question...</p>
+    <div>
+      <button onclick="submitAnswer(true)">True</button>
+      <button onclick="submitAnswer(false)">False</button>
+    </div>
+    <div id="tf-feedback"></div>
+  </div>
+
+  <footer>&copy; 2025 Reducetarian Fellowship Game</footer>
+
+  <script>
+    const tfQuestions = [
+      { question: "Producing one pound of beef uses more water than producing one pound of tofu.", answer: true },
+      { question: "Avocados have more protein than a steak.", answer: false },
+      { question: "Eating locally has a bigger impact than reducing meat consumption.", answer: false },
+      { question: "Plant-based diets can significantly reduce greenhouse gas emissions.", answer: true }
+    ];
+
+    let currentTFIndex = 0;
+
+    function loadTFQuestion() {
+      document.getElementById("tf-question").textContent = tfQuestions[currentTFIndex].question;
+      document.getElementById("tf-feedback").textContent = "";
+    }
+
+    function submitAnswer(userAnswer) {
+      const correct = tfQuestions[currentTFIndex].answer;
+      const feedback = document.getElementById("tf-feedback");
+
+      if (userAnswer === correct) {
+        feedback.textContent = "Correct! ✅";
+        feedback.style.color = "green";
+      } else {
+        feedback.textContent = "Oops! That's not right. ❌";
+        feedback.style.color = "red";
+      }
+
+      setTimeout(() => {
+        currentTFIndex = (currentTFIndex + 1) % tfQuestions.length;
+        loadTFQuestion();
+      }, 2000);
+    }
+
+    document.addEventListener("DOMContentLoaded", loadTFQuestion);
+  </script>
+</body>
+</html>

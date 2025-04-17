@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Reducetarian Fellowship Project</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary-green: #43a047;
@@ -30,16 +31,55 @@
     }
 
     header {
-      background: linear-gradient(135deg, var(--primary-green), var(--dark-green));
-      color: white;
-      text-align: center;
-      padding: 3rem 1rem 2rem;
-    }
+  background: linear-gradient(135deg, var(--primary-green), var(--dark-green));
+  text-align: center;
+  padding: 4rem 1rem 3rem;
+  color: white;
+  position: relative;
+}
 
-    header h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-    }
+header h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  letter-spacing: -0.5px;
+  color: white;
+  text-shadow: 
+    2px 2px 0 var(--dark-green), 
+    -2px -2px 0 var(--dark-green),
+    4px 4px 15px rgba(0, 0, 0, 0.2);
+  animation: pulseText 2.5s infinite ease-in-out;
+}
+
+header p {
+  font-size: 1.25rem;
+  color: #e8f5e9;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+  animation: fadeInText 1.5s ease-in;
+}
+
+@keyframes pulseText {
+  0%, 100% {
+    text-shadow: 
+      2px 2px 0 var(--dark-green), 
+      -2px -2px 0 var(--dark-green),
+      4px 4px 15px rgba(0, 0, 0, 0.2);
+  }
+  50% {
+    text-shadow: 
+      2px 2px 0 var(--accent-green), 
+      -2px -2px 0 var(--accent-green),
+      6px 6px 20px rgba(102, 187, 106, 0.4);
+  }
+}
+
+@keyframes fadeInText {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 
     nav {
       background-color: white;
@@ -125,13 +165,18 @@
       margin-bottom: 1rem;
     }
 
+    .game-card button,
+    select,
+    label {
+      font-size: 1rem;
+    }
+
     .game-card button {
       padding: 0.6rem 1.2rem;
       background-color: var(--primary-green);
       color: white;
       border: none;
       border-radius: 8px;
-      font-size: 1rem;
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
@@ -187,6 +232,16 @@
       margin-top: 3rem;
       border-top: 5px solid var(--accent-green);
     }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.8; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 <body>
@@ -198,6 +253,7 @@
   <nav>
     <ul>
       <li><a href="#games">Games</a></li>
+      <li><a href="#impact-calculator">Impact Calculator</a></li>
       <li><a href="#data-viz">Data Visualizations</a></li>
       <li><a href="#about">About</a></li>
     </ul>
@@ -217,6 +273,34 @@
           <p>Find keywords related to food systems, sustainability, and nutrition.</p>
           <button onclick="window.location.href='word-search.html'">Play Now</button>
         </div>
+        <div class="game-card">
+          <h3>True or False</h3>
+          <p>Test your knowledge about sustainability and food facts.</p>
+          <button onclick="window.location.href='tf.html'">Play Now</button>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="impact-calculator">
+      <h2>Impact Calculator</h2>
+      <div class="game-container">
+        <div class="game-card">
+          <h3>What’s the impact of your meal?</h3>
+          <p>Select a meal type to see its estimated carbon and water footprint.</p>
+
+          <label for="meal-type" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Meal type:</label>
+          <select id="meal-type" style="padding: 0.5rem; border-radius: 6px; margin-bottom: 1rem; width: 100%; max-width: 300px;">
+            <option value="beef">Beef Burger</option>
+            <option value="chicken">Chicken Sandwich</option>
+            <option value="plant">Plant-Based</option>
+          </select>
+
+          <br>
+          <button onclick="calculateImpact()">Calculate Impact</button>
+
+          <div id="result" style="margin-top: 1.5rem; padding: 1.2rem; border-radius: 10px; background-color: var(--light-green); font-weight: 600; transition: all 0.3s ease;"></div>
+        </div>
       </div>
     </section>
 
@@ -227,16 +311,14 @@
         <img id="slide-image" src="production.png" alt="Visualization">
         <button class="next" onclick="changeSlide(1)">&#10095;</button>
         <div class="description" id="slide-description">
-          This chart shows the global total agricultural production value from 1961 to 2014 using FAO data. It highlights a steady upward trend driven by population growth, technological advancements, and expanded agricultural practices, with a sharp spike around 1992 likely due to geopolitical shifts and improved reporting. Overall, it reflects rising demand and growing production capacity, offering insight into long-term trends in global food systems.
+          This chart shows the global total agricultural production value from 1961 to 2014 using FAO data. It highlights a steady upward trend driven by population growth, technological advancements, and expanded agricultural practices.
         </div>
       </div>
     </section>
 
     <section id="about">
       <h2>About the Project</h2>
-      <p>This project was created by Sana Amjad as part of the Reducetarian Fellowship to raise awareness and inspire engagement through interactive learning tools. As a multidisciplinary technologist passionate about ethical technology and public interest design, Sana conceptualized, designed, and implemented this initiative using principles of human-centered computing, data storytelling, and inclusive design. Drawing from her background in Information Science, with a specialization in Data Science and minors in Information Risk Management & Privacy and Tech Policy, she aimed to create a tool that is both educational and impactful, bridging the gap between awareness and action on key issues like food sustainability and climate justice.
-
-        .</p>
+      <p>This project was created by Sana Amjad as part of the Reducetarian Fellowship to raise awareness and inspire engagement through interactive learning tools. As a multidisciplinary technologist passionate about ethical technology and public interest design, Sana conceptualized, designed, and implemented this initiative using principles of human-centered computing, data storytelling, and inclusive design.</p>
     </section>
   </main>
 
@@ -245,6 +327,84 @@
   </footer>
 
   <script>
+    function calculateImpact() {
+      const meal = document.getElementById('meal-type').value;
+      const result = document.getElementById('result');
+      result.style.opacity = 0;
+
+      const data = {
+        beef: {
+          emoji: "🌍",
+          title: "High Environmental Impact",
+          color: "#ef5350",
+          emissions: 27,
+          water: "1,800 gallons",
+          land: "7.4 m²/day",
+          tip: "Consider swapping one beef meal per week for lentils to cut your annual CO₂ by over 300kg!"
+        },
+        chicken: {
+          emoji: "🌿",
+          title: "Moderate Environmental Impact",
+          color: "#ffca28",
+          emissions: 6.9,
+          water: "518 gallons",
+          land: "2.3 m²/day",
+          tip: "Chicken has a smaller impact, but plant-based swaps go even further."
+        },
+        plant: {
+          emoji: "💚",
+          title: "Low Environmental Impact",
+          color: "#66bb6a",
+          emissions: 1.5,
+          water: "302 gallons",
+          land: "0.3 m²/day",
+          tip: "You’re making a climate-conscious choice! Try legumes and tofu for variety."
+        }
+      };
+
+      const mealData = data[meal];
+
+      setTimeout(() => {
+        result.innerHTML = `
+          <div style="text-align: left; animation: fadeIn 0.6s ease-in-out;">
+            <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+              <div style="
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                background: ${mealData.color};
+                color: white;
+                font-weight: bold;
+                font-size: 1.2rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-right: 1rem;
+                animation: pulse 2s infinite;
+              ">${mealData.emissions}kg</div>
+              <div>
+                <h4 style="margin: 0; font-size: 1.2rem; color: ${mealData.color};">${mealData.emoji} ${mealData.title}</h4>
+                <p style="margin: 0.2rem 0 0;">CO₂e per serving</p>
+              </div>
+            </div>
+
+            <div style="margin-top: 1rem;">
+              <strong>🌫️ Emissions:</strong> ${mealData.emissions} kg CO₂e<br>
+              <strong>💧 Water:</strong> ${mealData.water}<br>
+              <strong>🌾 Land Use:</strong> ${mealData.land}
+            </div>
+
+            <div style="margin-top: 1rem; background: linear-gradient(90deg, ${mealData.color}, transparent); height: 12px; border-radius: 6px;">
+              <div style="height: 100%; width: ${mealData.emissions * 3}%; background: ${mealData.color}; border-radius: 6px;"></div>
+            </div>
+
+            <p style="margin-top: 1rem; font-style: italic; font-size: 0.95rem; color: #555;">💡 ${mealData.tip}</p>
+          </div>
+        `;
+        result.style.opacity = 1;
+      }, 300);
+    }
+
     const images = [
       'production.png',
       'crop.png',
@@ -254,11 +414,11 @@
     ];
 
     const descriptions = [
-      'This chart shows the global total agricultural production value from 1961 to 2014 using FAO data. It highlights a steady upward trend driven by population growth, technological advancements, and expanded agricultural practices, with a sharp spike around 1992 likely due to geopolitical shifts and improved reporting. Overall, it reflects rising demand and growing production capacity, offering insight into long-term trends in global food systems.',
-      'This map illustrates global crop diversity by country, using color gradients to represent the number of unique crops cultivated in each region. Countries shaded in bright yellow grow over 110 different crops, indicating a rich and diverse agricultural base. These include regions such as India, China, the United States, and Brazil, which benefit from varied climates, advanced agricultural infrastructure, and large-scale farming systems. In contrast, areas shown in purple and dark shades; including parts of Africa, Central Asia, and the Middle East; display lower crop diversity (under 80 crops). This can be linked to factors such as climatic limitations, political instability, resource constraints, or economic dependency on a few staple crops. ',
-      'This chart shows that cereals (excluding beer) have the highest global production value, highlighting their role as essential dietary staples and animal feed. Milk production follows closely, reflecting the widespread demand for dairy across cultures. Vegetables, starchy roots, and maize also rank high, emphasizing their importance in both nutrition and food security. Overall, the data reveals how a few key food categories dominate global agricultural output, shaping diets and economies worldwide.',
-      'This projected increase in wheat production signals both opportunity and pressure for global food systems. On one hand, it reflects the capacity to meet growing food demands driven by population growth and dietary reliance on staple grains. On the other, it highlights the need for sustainable agricultural practices, as continued expansion could strain land, water, and climate resources. The trend emphasizes the importance of investing in resilient, climate-smart farming to ensure food security without compromising ecological balance.',
-      'Yearly production trend for Wheat and related products, tracking changes in demand and output over time.'
+      'This chart shows the global total agricultural production value from 1961 to 2014 using FAO data.',
+      'This map illustrates global crop diversity by country.',
+      'This chart shows that cereals have the highest global production value.',
+      'This projected increase in wheat production signals pressure on food systems.',
+      'Yearly wheat production trend showing demand and output growth.'
     ];
 
     let currentIndex = 0;

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Impact Calculator</title>
+  <style>
+    :root {
+      --primary-green: #43a047;
+      --dark-green: #2e7d32;
+      --light-green: #e8f5e9;
+      --accent-green: #66bb6a;
+      --background: #f4faf4;
+      --text-color: #2e2e2e;
+      --card-shadow: rgba(0, 0, 0, 0.07);
+    }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--background);
+      color: var(--text-color);
+      margin: 0;
+      padding: 2rem;
+    }
+
+    h1 {
+      text-align: center;
+      color: var(--dark-green);
+      margin-bottom: 2rem;
+    }
+
+    .calculator {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 8px 20px var(--card-shadow);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid #ccc;
+      border-radius: 0.5rem;
+    }
+
+    button {
+      padding: 0.75rem 1.5rem;
+      background-color: var(--primary-green);
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: var(--dark-green);
+    }
+
+    .result {
+      margin-top: 2rem;
+      background-color: var(--light-green);
+      padding: 1rem;
+      border-radius: 0.5rem;
+    }
+
+    .result p {
+      margin: 0.5rem 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>🌍 Impact Calculator</h1>
+  <div class="calculator">
+    <label for="meals">Meals per Week:</label>
+    <input type="number" id="meals" min="1" max="50" value="21"/>
+
+    <label for="diet">Diet Type:</label>
+    <select id="diet">
+      <option value="omnivore">Omnivore</option>
+      <option value="reducetarian">Reducetarian</option>
+      <option value="vegetarian">Vegetarian</option>
+      <option value="vegan">Vegan</option>
+    </select>
+
+    <button onclick="calculateImpact()">See Your Footprint</button>
+
+    <div class="result" id="result" style="display: none;"></div>
+  </div>
+
+  <script>
+    function calculateImpact() {
+      const meals = parseInt(document.getElementById('meals').value);
+      const diet = document.getElementById('diet').value;
+      const resultDiv = document.getElementById('result');
+
+      const impactData = {
+        omnivore:      { co2: 3.3,  water: 800,  animals: 0.035 },
+        reducetarian:  { co2: 2.2,  water: 600,  animals: 0.025 },
+        vegetarian:    { co2: 1.5,  water: 450,  animals: 0.015 },
+        vegan:         { co2: 1.1,  water: 350,  animals: 0.010 }
+      };
+
+      const impact = impactData[diet];
+      const totalCO2 = (meals * impact.co2).toFixed(1);
+      const totalWater = (meals * impact.water).toLocaleString();
+      const totalAnimals = (meals * impact.animals).toFixed(2);
+
+      const yearlyCO2 = (meals * impact.co2 * 52).toLocaleString(undefined, { maximumFractionDigits: 0 });
+      const yearlyWater = (meals * impact.water * 52).toLocaleString();
+      const yearlyAnimals = (meals * impact.animals * 52).toFixed(0);
+
+      resultDiv.innerHTML = `
+        <p><strong>🌱 Weekly Impact:</strong></p>
+        <p>💨 <strong>${totalCO2} kg CO₂</strong> saved</p>
+        <p>💧 <strong>${totalWater} liters of water</strong> saved</p>
+        <p>🐄 <strong>${totalAnimals} animals</strong> spared</p>
+        <br>
+        <p><strong>📅 Yearly Projection:</strong></p>
+        <p>💨 <strong>${yearlyCO2} kg CO₂</strong></p>
+        <p>💧 <strong>${yearlyWater} liters of water</strong></p>
+        <p>🐄 <strong>${yearlyAnimals} animals</strong></p>
+        <br>
+        <p>🌍 These estimates are based on lifecycle food production data from global studies. Every conscious choice counts!</p>
+      `;
+      resultDiv.style.display = "block";
+    }
+  </script>
+</body>
+</html>
