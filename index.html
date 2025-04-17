@@ -31,55 +31,54 @@
     }
 
     header {
-  background: linear-gradient(135deg, var(--primary-green), var(--dark-green));
-  text-align: center;
-  padding: 4rem 1rem 3rem;
-  color: white;
-  position: relative;
-}
+      background: linear-gradient(135deg, var(--primary-green), var(--dark-green));
+      text-align: center;
+      padding: 4rem 1rem 3rem;
+      color: white;
+      position: relative;
+    }
 
-header h1 {
-  font-size: 3rem;
-  font-weight: 800;
-  margin-bottom: 1rem;
-  letter-spacing: -0.5px;
-  color: white;
-  text-shadow: 
-    2px 2px 0 var(--dark-green), 
-    -2px -2px 0 var(--dark-green),
-    4px 4px 15px rgba(0, 0, 0, 0.2);
-  animation: pulseText 2.5s infinite ease-in-out;
-}
+    header h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      letter-spacing: -0.5px;
+      color: white;
+      text-shadow: 
+        2px 2px 0 var(--dark-green), 
+        -2px -2px 0 var(--dark-green),
+        4px 4px 15px rgba(0, 0, 0, 0.2);
+      animation: pulseText 2.5s infinite ease-in-out;
+    }
 
-header p {
-  font-size: 1.25rem;
-  color: #e8f5e9;
-  max-width: 600px;
-  margin: 0 auto;
-  line-height: 1.6;
-  animation: fadeInText 1.5s ease-in;
-}
+    header p {
+      font-size: 1.25rem;
+      color: #e8f5e9;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+      animation: fadeInText 1.5s ease-in;
+    }
 
-@keyframes pulseText {
-  0%, 100% {
-    text-shadow: 
-      2px 2px 0 var(--dark-green), 
-      -2px -2px 0 var(--dark-green),
-      4px 4px 15px rgba(0, 0, 0, 0.2);
-  }
-  50% {
-    text-shadow: 
-      2px 2px 0 var(--accent-green), 
-      -2px -2px 0 var(--accent-green),
-      6px 6px 20px rgba(102, 187, 106, 0.4);
-  }
-}
+    @keyframes pulseText {
+      0%, 100% {
+        text-shadow: 
+          2px 2px 0 var(--dark-green), 
+          -2px -2px 0 var(--dark-green),
+          4px 4px 15px rgba(0, 0, 0, 0.2);
+      }
+      50% {
+        text-shadow: 
+          2px 2px 0 var(--accent-green), 
+          -2px -2px 0 var(--accent-green),
+          6px 6px 20px rgba(102, 187, 106, 0.4);
+      }
+    }
 
-@keyframes fadeInText {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
+    @keyframes fadeInText {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
     nav {
       background-color: white;
@@ -281,7 +280,14 @@ header p {
       </div>
     </section>
 
+    <section id="quiz-link">
+      <h2>Test Your Knowledge</h2>
+      <p>Think you know about food systems and factory farming? Take our quiz!</p>
+      <button onclick="window.location.href='quiz.html'">Take the Quiz</button>
+    </section>
+  </main>
 
+    <!-- Existing Sections -->
     <section id="impact-calculator">
       <h2>Impact Calculator</h2>
       <div class="game-container">
