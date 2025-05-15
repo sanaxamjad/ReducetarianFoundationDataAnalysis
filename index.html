@@ -241,6 +241,53 @@
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
+    /* TIMELINE STYLES */
+    #timeline {
+      margin-bottom: 4rem;
+      padding: 2rem;
+      background-color: white;
+      border-radius: 1rem;
+      box-shadow: 0 8px 20px var(--card-shadow);
+    }
+
+    .timeline-container {
+      position: relative;
+      margin: 2rem auto;
+      padding-left: 2rem;
+      border-left: 3px solid var(--primary-green);
+      max-width: 800px;
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 2rem;
+      padding-left: 1rem;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      top: 0.25rem;
+      left: -1.1rem;
+      width: 1rem;
+      height: 1rem;
+      background-color: var(--accent-green);
+      border: 2px solid white;
+      border-radius: 50%;
+      box-shadow: 0 0 0 3px var(--primary-green);
+      animation: pulse 1.5s infinite;
+    }
+
+    .timeline-content h4 {
+      margin: 0;
+      font-size: 1.1rem;
+      color: var(--dark-green);
+    }
+
+    .timeline-content p {
+      margin: 0.3rem 0 0;
+      font-size: 0.95rem;
+      color: #444;
+    }
   </style>
 </head>
 <body>
@@ -254,7 +301,9 @@
       <li><a href="#games">Games</a></li>
       <li><a href="#impact-calculator">Impact Calculator</a></li>
       <li><a href="#data-viz">Data Visualizations</a></li>
-      <li><a href="#about">About</a></li>
+      <li><a href="#timeline">Timeline</a></li>
+      <li><a href="#Ingredient Detective">About</a></li>
+      <li><a href="#about">Ingredient Detective</a></li>
     </ul>
   </nav>
 
@@ -325,15 +374,290 @@
       </div>
     </section>
 
-    <section id="about">
-      <h2>About the Project</h2>
-      <p>This project was created by Sana Amjad as part of the Reducetarian Fellowship to raise awareness and inspire engagement through interactive learning tools. As a multidisciplinary technologist passionate about ethical technology and public interest design, Sana conceptualized, designed, and implemented this initiative using principles of human-centered computing, data storytelling, and inclusive design.</p>
-    </section>
-  </main>
+    <!-- ✅ NEW TIMELINE SECTION -->
+<section id="timeline">
+  <h2>Timeline of Food System Shifts</h2>
+  <div class="timeline-container">
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <h4>1961</h4>
+        <p>Rise of Industrial Agriculture — a global shift toward high-yield, chemical-intensive farming began.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <h4>1977</h4>
+        <p>US Dietary Guidelines Introduced — early attempts to address national nutrition led to increased focus on carbs over fats.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <h4>1992</h4>
+        <p>Factory Farming Boom — CAFOs and monocultures took over the food system to meet growing meat demand.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <h4>1996</h4>
+        <p>Introduction of GMOs — genetically modified crops were first commercialized, aiming to improve yield and resistance.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <h4>2006</h4>
+        <p>Meatless Monday Movement — launched in the U.S. to promote reduced meat consumption for health and sustainability.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <h4>2013</h4>
+        <p>Lab-Grown Meat Debuts — the first lab-grown burger is publicly eaten, sparking global interest in cellular agriculture.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <h4>2023</h4>
+        <p>Plant-Based Shift — rise of climate-conscious eating, mainstreaming of vegan alternatives.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <h4>2024</h4>
+        <p>EU Approves Cultivated Meat Trials — the European Union greenlights pilot testing of cultivated meat for consumer markets.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="ingredient-detective">
+  <h2>Ingredient Detective</h2>
+  <div class="game-container">
+    <div class="game-card">
+      <h3>Scan the Pantry</h3>
+      <p>Click on ingredients that are environmentally harmful or surprising!</p>
+      <div id="pantry" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1rem;">
+        <button class="ingredient" data-risk="true">Palm Oil</button>
+        <button class="ingredient" data-risk="false">Oats</button>
+        <button class="ingredient" data-risk="true">Gelatin</button>
+        <button class="ingredient" data-risk="false">Chickpeas</button>
+        <button class="ingredient" data-risk="true">Soy Lecithin</button>
+        <button class="ingredient" data-risk="false">Quinoa</button>
+        <button class="ingredient" data-risk="true">Red Dye #40</button>
+        <button class="ingredient" data-risk="false">Brown Rice</button>
+        <button class="ingredient" data-risk="true">High-Fructose Corn Syrup</button>
+      </div>
+      <div id="feedback" style="margin-top: 1.5rem; font-weight: 600;"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 🌍 Factory Farming Hotspots Map Section -->
+<section id="map-section">
+  <h2>🌍 Global Factory Farming Hotspots</h2>
+  <p>Click on a country to explore where factory farming is most intense and where change is happening.</p>
+  <div id="map" style="height: 500px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); margin-top: 1rem;"></div>
+</section>
+
+<!-- Scripts -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  // ✅ Fix for missing default Leaflet marker icons
+  delete L.Icon.Default.prototype._getIconUrl;
+  L.Icon.Default.mergeOptions({
+    iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
+    iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
+    shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png'
+  });
+
+  // Ingredient Game Logic
+  document.querySelectorAll('.ingredient').forEach(button => {
+    button.addEventListener('click', () => {
+      const isRisk = button.dataset.risk === "true";
+      const feedback = document.getElementById('feedback');
+      if (isRisk) {
+        button.style.backgroundColor = '#ef5350';
+        button.style.color = 'white';
+        feedback.innerHTML = `✔️ <strong>${button.textContent}</strong> is flagged for being unsustainable or controversial.`;
+      } else {
+        button.style.backgroundColor = '#ccc';
+        feedback.innerHTML = `❌ <strong>${button.textContent}</strong> is not typically considered harmful.`;
+      }
+    });
+  });
+
+  // Factory Farming Map Logic
+  var map = L.map('map').setView([20, 0], 2);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
+  }).addTo(map);
+
+  const hotspotData = [
+  {
+    country: "United States",
+    coords: [37.8, -96],
+    content: "<b>USA</b><br>🔴 Extremely high CAFO concentration.<br>🌱 Leading plant-based innovation in California."
+  },
+  {
+    country: "Brazil",
+    coords: [-14.2, -51.9],
+    content: "<b>Brazil</b><br>🔴 Beef exports linked to Amazon deforestation."
+  },
+  {
+    country: "Netherlands",
+    coords: [52.1, 5.3],
+    content: "<b>Netherlands</b><br>🟠 Dense livestock farming.<br>⚖️ Nitrogen crisis + citizen-led change."
+  },
+  {
+    country: "India",
+    coords: [20.6, 78.9],
+    content: "<b>India</b><br>🟢 Low meat intake.<br>🌿 Exploring plant-forward food security."
+  },
+  {
+    country: "China",
+    coords: [35.8, 104.2],
+    content: "<b>China</b><br>🔴 Industrial pork + poultry surge.<br>🐖 Largest pork consumer globally."
+  },
+  {
+    country: "Germany",
+    coords: [51.1, 10.5],
+    content: "<b>Germany</b><br>🟡 Transitioning policies.<br>💚 Veganism and subsidies for alt-proteins rising."
+  },
+  {
+    country: "Australia",
+    coords: [-25.3, 133.8],
+    content: "<b>Australia</b><br>🟠 Massive cattle industry.<br>🔥 Land use + emissions under scrutiny."
+  },
+  {
+    country: "Argentina",
+    coords: [-34.6, -58.4],
+    content: "<b>Argentina</b><br>🔴 Export-heavy meat economy.<br>🌾 Soy linked to deforestation."
+  },
+  {
+    country: "South Africa",
+    coords: [-30.6, 22.9],
+    content: "<b>South Africa</b><br>🟡 Mid-level meat production.<br>🌍 Local plant-based movements growing."
+  },
+  {
+    country: "France",
+    coords: [46.2, 2.2],
+    content: "<b>France</b><br>🟡 High dairy consumption.<br>🧀 Public debate on ethics of intensive farming."
+  },
+  {
+    country: "United Kingdom",
+    coords: [55.3, -3.4],
+    content: "<b>UK</b><br>🟠 Factory farming exists.<br>📣 Youth activism and meat-free campaigns."
+  },
+  {
+    country: "Mexico",
+    coords: [23.6, -102.5],
+    content: "<b>Mexico</b><br>🟡 Growing industrial meat sector.<br>🌽 Corn monocultures widespread."
+  },
+  {
+    country: "Canada",
+    coords: [56.1, -106.3],
+    content: "<b>Canada</b><br>🟠 Meat-heavy diets in western provinces.<br>🌱 Vegan options increasing in urban centers."
+  },
+  {
+    country: "Indonesia",
+    coords: [-0.8, 113.9],
+    content: "<b>Indonesia</b><br>🔴 Deforestation for palm oil + poultry farming."
+  },
+  {
+    country: "New Zealand",
+    coords: [-40.9, 174.9],
+    content: "<b>New Zealand</b><br>🟠 Dairy-dominated farming.<br>🌱 Emerging alt-protein industry."
+  },
+  {
+    country: "Poland",
+    coords: [51.9, 19.1],
+    content: "<b>Poland</b><br>🟡 Rising pork production.<br>🐷 Animal rights debates intensifying."
+  },
+  {
+    country: "Thailand",
+    coords: [15.8, 100.9],
+    content: "<b>Thailand</b><br>🔴 Major poultry exporter.<br>💡 Policy lags behind industry expansion."
+  },
+  {
+    country: "Russia",
+    coords: [61.5, 105.3],
+    content: "<b>Russia</b><br>🟡 Expanding domestic livestock sector."
+  },
+  {
+    country: "Italy",
+    coords: [41.9, 12.5],
+    content: "<b>Italy</b><br>🧀 High meat + dairy use.<br>🌿 Growing support for sustainable traditions."
+  },
+  {
+    country: "Ethiopia",
+    coords: [9.1, 40.5],
+    content: "<b>Ethiopia</b><br>🟢 Low meat dependency.<br>🌍 A case for sustainable agriculture."
+  }
+];
+
+  hotspotData.forEach((spot) => {
+    const marker = L.marker(spot.coords).addTo(map);
+    marker.bindPopup(spot.content);
+  });
+</script>
+
+
+<!-- Styles -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<style>
+  #ingredient-detective .ingredient {
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    border: none;
+    background-color: var(--light-green);
+    cursor: pointer;
+    font-weight: 600;
+    color: black;
+    transition: background-color 0.3s ease;
+  }
+
+  #ingredient-detective .ingredient:hover {
+    background-color: var(--accent-green);
+    color: white;
+  }
+
+  #map-section {
+    max-width: 800px;
+    margin: 3rem auto;
+    text-align: center;
+    padding: 1rem;
+  }
+
+  #map {
+    margin-top: 1rem;
+  }
+
+  </style>
+  
+  <section id="about">
+    <h2>About the Project</h2>
+    <p>This project was created by Sana Amjad as part of the Reducetarian Fellowship...</p>
+  </section>
+</main>
 
   <footer>
     <p>&copy; 2025 Reducetarian Fellowship Project</p>
-  </footer>
 
   <script>
     function calculateImpact() {
@@ -419,7 +743,6 @@
       'crop.png',
       'items.png',
       'wheat.png',
-      'images/wheat-trend.png'
     ];
 
     const descriptions = [
