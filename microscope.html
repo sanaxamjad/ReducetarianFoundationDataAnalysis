@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food System RPG</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f0fdf4;
+      color: #1b4332;
+      padding: 2rem;
+      margin: 0;
+    }
+
+    h1, h2 {
+      text-align: center;
+    }
+
+    .game-container {
+      max-width: 700px;
+      margin: 2rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    .choices {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    button {
+      padding: 1rem;
+      background-color: #52b788;
+      border: none;
+      border-radius: 0.75rem;
+      color: white;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #40916c;
+    }
+
+    .summary {
+      margin-top: 2rem;
+      padding: 1rem;
+      background: #e9f5ef;
+      border-radius: 0.5rem;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎮 Food System RPG</h1>
+  <div class="game-container" id="game">
+    <h2>Choose Your Role</h2>
+    <div class="choices">
+      <button onclick="startGame('farmer')">🧑‍🌾 Farmer</button>
+      <button onclick="startGame('chef')">🧑‍🍳 Restaurant Owner</button>
+      <button onclick="startGame('consumer')">🛒 Consumer</button>
+      <button onclick="startGame('policymaker')">🧑‍⚖️ Policy Maker</button>
+    </div>
+  </div>
+
+  <script>
+    const gameContainer = document.getElementById('game');
+    let score = { water: '', emissions: '', welfare: '', profit: '' };
+
+    function startGame(role) {
+      if (role === 'farmer') scene1Farmer();
+      else if (role === 'chef') scene1Chef();
+      else if (role === 'consumer') scene1Consumer();
+      else if (role === 'policymaker') scene1Policy();
+    }
+
+    function scene1Farmer() {
+      gameContainer.innerHTML = `
+        <h2>🌾 Scene 1: Your First Season</h2>
+        <p>You’ve inherited 80 acres of farmland in Iowa. Corn is subsidized. Chickpeas are more sustainable. What do you plant?</p>
+        <div class="choices">
+          <button onclick="scene2Farmer('corn')">🌽 Corn</button>
+          <button onclick="scene2Farmer('chickpeas')">🌱 Chickpeas</button>
+          <button onclick="scene2Farmer('labmeat')">🧪 Lab-Grown Meat Facility</button>
+        </div>
+      `;
+    }
+
+    function scene2Farmer(choice1) {
+      let message = '', impact = {};
+      if (choice1 === 'corn') {
+        message = "🌽 You planted corn. It's profitable thanks to subsidies, but depletes soil and requires heavy pesticide use.";
+        impact = { water: 'HIGH', emissions: 'HIGH', welfare: 'LOW', profit: 'HIGH' };
+      } else if (choice1 === 'chickpeas') {
+        message = "🌱 You planted chickpeas! They fix nitrogen and use 87% less water than corn, but earn less without subsidies.";
+        impact = { water: 'LOW', emissions: 'MEDIUM', welfare: 'HIGH', profit: 'LOW' };
+      } else {
+        message = "🧪 You converted your land to host a startup lab meat facility. It’s futuristic and costly, but animal-free.";
+        impact = { water: 'LOW', emissions: 'LOW', welfare: 'HIGH', profit: 'MEDIUM' };
+      }
+      score = impact;
+      gameContainer.innerHTML = `
+        <h2>📈 Scene 2: Drought Strikes</h2>
+        <p>${message}</p>
+        <p>A severe drought hits the region. How do you respond?</p>
+        <div class="choices">
+          <button onclick="finalScene()">💧 Invest in drip irrigation</button>
+          <button onclick="finalScene()">💸 Accept government aid and continue</button>
+          <button onclick="finalScene()">🏭 Lease to a meat company</button>
+        </div>
+      `;
+    }
+
+    function scene1Chef() {
+      score = { water: '', emissions: '', welfare: '', profit: '' };
+      gameContainer.innerHTML = `
+        <h2>🍳 Scene 1: Menu Planning</h2>
+        <p>You’re opening a new restaurant. Do you center the menu around:</p>
+        <div class="choices">
+          <button onclick="scene2Chef('meat')">🥩 Meat-heavy comfort food</button>
+          <button onclick="scene2Chef('fusion')">🌮 Sustainable global fusion</button>
+          <button onclick="scene2Chef('plant')">🥗 Fully plant-based menu</button>
+        </div>
+      `;
+    }
+
+    function scene2Chef(choice) {
+      if (choice === 'meat') {
+        score = { water: 'HIGH', emissions: 'VERY HIGH', welfare: 'LOW', profit: 'HIGH' };
+      } else if (choice === 'fusion') {
+        score = { water: 'MEDIUM', emissions: 'MEDIUM', welfare: 'MEDIUM', profit: 'MEDIUM' };
+      } else {
+        score = { water: 'LOW', emissions: 'LOW', welfare: 'HIGH', profit: 'LOW' };
+      }
+      gameContainer.innerHTML = `
+        <h2>💸 Scene 2: Customer Response</h2>
+        <p>Your restaurant receives its first wave of reviews. How do you respond to mixed reactions?</p>
+        <div class="choices">
+          <button onclick="finalScene()">📣 Launch educational campaign</button>
+          <button onclick="finalScene()">🍖 Add meat options to boost appeal</button>
+          <button onclick="finalScene()">🔄 Rebrand slowly and stay mission-driven</button>
+        </div>
+      `;
+    }
+
+    function scene1Consumer() {
+      score = { water: '', emissions: '', welfare: '', profit: '' };
+      gameContainer.innerHTML = `
+        <h2>🛒 Scene 1: Weekly Grocery Trip</h2>
+        <p>Which products do you prioritize?</p>
+        <div class="choices">
+          <button onclick="scene2Consumer('cheap')">🛍️ Cheapest options</button>
+          <button onclick="scene2Consumer('local')">🌽 Local, seasonal foods</button>
+          <button onclick="scene2Consumer('organic')">🍏 Organic & certified humane</button>
+        </div>
+      `;
+    }
+
+    function scene2Consumer(choice) {
+      if (choice === 'cheap') {
+        score = { water: 'HIGH', emissions: 'HIGH', welfare: 'LOW', profit: 'N/A' };
+      } else if (choice === 'local') {
+        score = { water: 'MEDIUM', emissions: 'LOW', welfare: 'MEDIUM', profit: 'N/A' };
+      } else {
+        score = { water: 'LOW', emissions: 'MEDIUM', welfare: 'HIGH', profit: 'N/A' };
+      }
+      gameContainer.innerHTML = `
+        <h2>♻️ Scene 2: Food Waste</h2>
+        <p>You realize 30% of your food spoils by week’s end. What do you do?</p>
+        <div class="choices">
+          <button onclick="finalScene()">📆 Plan meals better</button>
+          <button onclick="finalScene()">🥫 Start composting</button>
+          <button onclick="finalScene()">🚮 Ignore it</button>
+        </div>
+      `;
+    }
+
+    function scene1Policy() {
+      score = { water: '', emissions: '', welfare: '', profit: '' };
+      gameContainer.innerHTML = `
+        <h2>⚖️ Scene 1: Drafting a Bill</h2>
+        <p>You’re crafting a national food policy. What do you focus on first?</p>
+        <div class="choices">
+          <button onclick="scene2Policy('subsidies')">🌽 Reform subsidies</button>
+          <button onclick="scene2Policy('education')">📚 School nutrition education</button>
+          <button onclick="scene2Policy('access')">🏪 Food access in underserved areas</button>
+        </div>
+      `;
+    }
+
+    function scene2Policy(choice) {
+      if (choice === 'subsidies') {
+        score = { water: 'LOW', emissions: 'LOW', welfare: 'HIGH', profit: 'MEDIUM' };
+      } else if (choice === 'education') {
+        score = { water: 'MEDIUM', emissions: 'MEDIUM', welfare: 'MEDIUM', profit: 'LOW' };
+      } else {
+        score = { water: 'HIGH', emissions: 'LOW', welfare: 'MEDIUM', profit: 'MEDIUM' };
+      }
+      gameContainer.innerHTML = `
+        <h2>🏛️ Scene 2: Public Pushback</h2>
+        <p>Lobbies and industry reps push back. What’s your move?</p>
+        <div class="choices">
+          <button onclick="finalScene()">🗣️ Defend your policy publicly</button>
+          <button onclick="finalScene()">✍️ Compromise on key details</button>
+          <button onclick="finalScene()">📉 Withdraw the bill</button>
+        </div>
+      `;
+    }
+
+    function finalScene() {
+      gameContainer.innerHTML = `
+        <h2>📊 Your Journey Summary</h2>
+        <div class="summary">
+          <p><strong>🧾 Your Impact Score:</strong></p>
+          <p>💧 Water Use: ${score.water}</p>
+          <p>🌫️ Emissions: ${score.emissions}</p>
+          <p>🐮 Animal Welfare: ${score.welfare}</p>
+          <p>💰 Profit Margin: ${score.profit}</p>
+        </div>
+        <div class="choices">
+          <button onclick="startGame('farmer')">🌾 Replay Farmer</button>
+          <button onclick="startGame('chef')">🍳 Replay Chef</button>
+          <button onclick="startGame('consumer')">🛒 Replay Consumer</button>
+          <button onclick="startGame('policymaker')">⚖️ Replay Policy Maker</button>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>
